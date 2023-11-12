@@ -1,10 +1,9 @@
 'use client'
 import { CartContext } from '@/Components/CartContext';
 import Navbar from '@/Components/navbar/index.js';
-import { useEffect, useState, useContext } from 'react';
 import Image from 'next/image';
-import Footer from '@/Components/Footer/index.js'
-
+import Footer from '@/Components/Footer/index.js';
+import { useEffect, useState, useContext } from 'react';
 
 const CartItems = () => {
   const { cartProducts, addproduct, lessproduct, removeAllById } = useContext(CartContext);
@@ -35,14 +34,11 @@ const CartItems = () => {
         .then((data) => {
           setProducts(data);
         })
-
         .catch((error) => {
           console.error('Error:', error);
         });
     }
   }, [cartProducts]);
-
-  console.log(product);
 
   function moreOfThisProduct(id) {
     addproduct(id);
@@ -73,13 +69,13 @@ const CartItems = () => {
           cartProducts,
         }),
       });
-  
+
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-  
+
       const responseData = await response.json();
-  
+
       if (responseData.url) {
         window.location = responseData.url;
       }
@@ -87,26 +83,19 @@ const CartItems = () => {
       console.error('Error:', error);
     }
   }
-  
-  
-  
+
   let total = 0;
   for (const productId of cartProducts) {
     const price = (product.find((p) => p._id === productId)?.price || 0);
     total += price;
   }
 
-  const shipping = () => {
-    if (total > 2000) {
-      return 100;
-    } else {
-      return 0;
-    }
-  };
+  const shipping = () => (total > 2000 ? 100 : 0);
+
   if (isSuccess) {
     return (
       <>
-        <h2>sucessfull</h2>
+        <h2>Successful</h2>
       </>
     );
   }
@@ -115,72 +104,95 @@ const CartItems = () => {
     <>
       <Navbar />
 
-      <div className="h-screen bg-gray-900 pt-20">
-        <h1 className="mb-10 text-center text-2xl font-bold">Cart Items</h1>
-        <div className="flex mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
-          {!cartProducts.length ? <div>Your cart is empty</div> : null}
-          <div className="rounded-lg md:w-2/3">
-            {product.length > 0 &&
+      <div className="min-h-screen bg-gray-900 pt-20">
+        <h1 className="mb-6 text-center text-lg md:text-2xl lg:text-3xl font-bold text-white">
+          Cart Items
+        </h1>
+        <div className="flex flex-col md:flex-row mx-auto max-w-5xl justify-center px-4 md:px-6 lg:px-8 xl:px-0 space-y-6 md:space-y-0">
+          <div className="rounded-lg md:w-full lg:w-2/3 xl:w-2/3">
+            {!cartProducts.length ? (
+              <div className="text-white">Your cart is empty</div>
+            ) : (
+              product.length > 0 &&
               product.map((product) => (
                 <div
                   key={product._id}
-                  className="flex justify-between mb-6 rounded-lg bg-white p-6 shadow-md"
+                  className="flex flex-col md:flex-row justify-between mb-6 rounded-lg bg-white p-6 shadow-md"
                 >
                   <Image
-                    src={product.images[0]} // Use the Image component for responsive images
+                    src={product.images[0]}
                     alt={product.title}
                     width={100}
                     height={50}
-                    className="rounded-lg"
+                    className="rounded-lg mb-4 md:mr-6 md:mb-0"
                   />
-                  <div className="mt-4">
-                    <h2 className="text-lg font-bold text-gray-900">{product.title}</h2>
-                    <p className="mt-1 text-xs text-gray-700">{product.description}</p>
-                  </div>
-                  <div className="mt-4 flex justify-between space-x-4">
-                    <div className="flex items-center border-gray-100">
-                      <button
-                        className="cursor-pointer rounded-l bg-black py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"
-                        onClick={() => lessOfThisProduct(product._id)}
-                      >
-                        {' '}
-                        -{' '}
-                      </button>
-                      <input
-                        className="h-8 w-8 border text-black bg-white text-center text-xs outline-none"
-                        type="number"
-                        value={cartProducts.filter((id) => id === product._id).length}
-                        min="1"
-                      />
-                      <button
-                        className="cursor-pointer rounded-r bg-black py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"
-                        onClick={() => moreOfThisProduct(product._id)}
-                      >
-                        {' '}
-                        +{' '}
-                      </button>
+                  <div className="flex flex-col justify-between md:w-2/3">
+                    <div>
+                      <h2 className="text-lg font-bold text-gray-900">
+                        {product.title}
+                      </h2>
+                      <p className="mt-1 text-xs text-gray-700">
+                        {product.description}
+                      </p>
                     </div>
-                    <div className="flex text-black items-center space-x-4">
-                      <p className="text-sm">{product.price * cartProducts.filter((id) => id === product._id).length}₹</p>
-                      <button onClick={() => remove(product._id)}>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth="1.5"
-                          stroke="currentColor"
-                          className="h-5 w-5 cursor-pointer duration-150 hover:text-red-500"
+                    <div className="flex justify-between items-center mt-4">
+                      <div className="flex items-center space-x-4">
+                        <button
+                          className="cursor-pointer rounded-l bg-black py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"
+                          onClick={() => lessOfThisProduct(product._id)}
                         >
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                      </button>
+                          {' '}
+                          -{' '}
+                        </button>
+                        <input
+                          className="h-8 w-8 border text-black bg-white text-center text-xs outline-none"
+                          type="number"
+                          value={cartProducts.filter(
+                            (id) => id === product._id
+                          ).length}
+                          min="1"
+                        />
+                        <button
+                          className="cursor-pointer rounded-r bg-black py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"
+                          onClick={() => moreOfThisProduct(product._id)}
+                        >
+                          {' '}
+                          +{' '}
+                        </button>
+                      </div>
+                      <div className="flex text-black items-center space-x-4">
+                        <p className="text-sm">
+                          {product.price *
+                            cartProducts.filter(
+                              (id) => id === product._id
+                            ).length}
+                          ₹
+                        </p>
+                        <button onClick={() => remove(product._id)}>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth="1.5"
+                            stroke="currentColor"
+                            className="h-5 w-5 cursor-pointer duration-150 hover:text-red-500"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M6 18L18 6M6 6l12 12"
+                            />
+                          </svg>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              ))}
+              ))
+            )}
           </div>
-          {/* Sub total */}
-          <div className="mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3">
+
+          <div className="mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-full lg:w-1/3 xl:w-1/3">
             <input
               type="text"
               placeholder="Name"
@@ -198,7 +210,7 @@ const CartItems = () => {
               className="w-full text-black mt-1 p-1 mb-1 border border-gray-300 rounded-lg box-border"
               onChange={(ev) => setEmail(ev.target.value)}
             />
-            <div className="flex gap-5">
+            <div className="flex flex-col md:flex-row gap-5">
               <input
                 type="text"
                 placeholder="City"
@@ -242,14 +254,14 @@ const CartItems = () => {
             </div>
             <hr className="my-4" />
             <div className="flex justify-between">
-              <p className="text-lg font-bold">Total</p>
+              <p className="text-lg font-bold text-gray-700">Total</p>
               <div>
-                <p className="mb-1 text-lg font-bold">$134.98 USD</p>
+                <p className="mb-1 text-lg font-bold">${total + shipping()} USD</p>
                 <p className="text-sm text-gray-700">including VAT</p>
               </div>
             </div>
             <button
-              className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover-bg-blue-600"
+              className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600"
               onClick={goToPayment}
             >
               Check out
@@ -257,7 +269,7 @@ const CartItems = () => {
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 };

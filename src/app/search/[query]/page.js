@@ -31,7 +31,7 @@ export default function Page() {
           Showing Search Results({data?.length})
         </h2>
         <div className="wrapper  grid ">
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {/* Render your data here */}
             {data ? (
               data.map((event, index) => <Event key={index} event={event} />)

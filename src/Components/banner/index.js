@@ -8,7 +8,7 @@ export default function Banner({ medias }) {
 
 
   return (
-    <div className="flex flex-col space-y-2 py-16 md:space-y-4 lg:h-[65vh] lg:justify-end lg:pb-12 lg:pl-24">
+    <div className="flex flex-col max-sm:h-[400px] space-y-2 py-16 md:space-y-4 lg:h-[65vh] lg:justify-end lg:pb-12 lg:pl-24 ">
       <div className="absolute top-0 left-0 h-[95vh] w-screen -z-10">
         <Image
           src={b1}

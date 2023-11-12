@@ -10,6 +10,15 @@ export async function getEvents() {
 
   return await response.json()
 }
+export async function getCatTitle() {
+  const response = await fetch('http://localhost:3000/api/cattitle')
+
+  if (!response.ok) {
+    throw new Error('failed to fetch events')
+  }
+
+  return await response.json()
+}
 
 export async function getSearch(query) {
     const response = await fetch(`http://localhost:3000/api/search?searchQuery=${query}`,

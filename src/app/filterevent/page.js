@@ -1,17 +1,17 @@
-'use client'
+'use client' 
 import React, { useEffect, useState, useRef } from 'react';
 import Navbar from '@/Components/navbar/index.js';
 import Footer from '@/Components/Footer/index.js';
 import { getCategory } from '@/app/libs/getdata.js';
 import Event from '@/Components/Event';
-import  CircleLoader from '@/Components/CircleLoader/index.js'
+import CircleLoader from '@/Components/CircleLoader/index.js';
 import { useIntersection } from '@mantine/hooks';
 
 function Page() {
   const options = ["rating", "price", "Trending"];
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(options[0]);
-  
+
   const defaultSelectedButtonIndex = 0;
   const [selectedButton, setSelectedButton] = useState(defaultSelectedButtonIndex);
   const [data, setData] = useState([]);
@@ -19,19 +19,19 @@ function Page() {
   const [loading, setLoading] = useState(false);
   const [hasMoreData, setHasMoreData] = useState(true);
 
-
   const handleToggle = (index) => {
     setSelectedButton(index);
     setData([]); // Clear the data array
     setPage(1); // Reset the page number to 1
+    setHasMoreData(true); // Reset hasMoreData
   };
 
   // Define buttonLabels here
   const buttonLabels = [
     "ALLALLALLALLALLALLALLALLALL",
-    '653663f07c87a31b4bef530bPop',
-    '6536504347e91cf5f1b48997HipHop',
-    '6536505647e91cf5f1b4899cEDM',
+    '6536505647e91cf5f1b4899cPop',
+    '653663f07c87a31b4bef530bTrans',
+    '6536504347e91cf5f1b48997Hip Hop',
   ];
 
   const buttonRef = useRef(null);
@@ -50,18 +50,17 @@ function Page() {
     closeDropdown();
     setData([]); // Clear the data array
     setPage(1); // Reset the page number to 1
-    
-
-   
-
   };
 
   async function fetchData(pageNumber) {
+      if (!hasMoreData) {
+    return; // No need to fetch more data if there is no more data
+  }
     setLoading(true);
-    console.log(pageNumber)
-    console.log(buttonLabels[selectedButton].slice(0, 24))
+    console.log(pageNumber);
+    console.log(buttonLabels[selectedButton].slice(0, 24));
     const category = buttonLabels[selectedButton].slice(0, 24);
-    const limit = 1;
+    const limit = 2;
     const order = 'asc';
     console.log('Selected option:', selectedOption);
     const sort = selectedOption;
@@ -73,7 +72,6 @@ function Page() {
       } else {
         setData((prevData) => [...prevData, ...response]);
         setPage(pageNumber + 1);
-
       }
     } catch (error) {
       console.error('Error:', error);
@@ -81,14 +79,10 @@ function Page() {
       setLoading(false);
     }
   }
-console.log(data)
-useEffect(() => {
-  if (!hasMoreData) {
-    return;
-  }
-  console.log('useEffect triggered');
-  fetchData(page);
-}, [selectedButton, selectedOption,hasMoreData]);
+
+  useEffect(() => {
+    fetchData(page);
+  }, [selectedButton, selectedOption]);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -101,8 +95,6 @@ useEffect(() => {
         closeDropdown();
       }
     }
-    
-    
 
     document.addEventListener('mousedown', handleClickOutside);
 
@@ -126,14 +118,14 @@ useEffect(() => {
   return (
     <>
       <Navbar />
-      <div className=''>
+      <div className='max-sm:mt-10 '>
         <div className="flex flex-row justify-center">
-          <span className='mt-3 text-xs m-1'>Types of Music : </span>
+          <span className='mt-3 text-xs m-1 max-sm:text-[8px]'>Types of Music : </span>
           {buttonLabels.map((label, index) => (
             <button
               key={`toggleButton${index + 1}`}
               onClick={() => handleToggle(index)}
-              className={`text-white bg-gray-800 hover:bg-red-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 ${
+              className={` max-sm:px-2 max-sm:text-[10px] text-white bg-gray-800 hover:bg-red-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 ${
                 selectedButton === index ? 'bg-red-800' : 'bg-black'
               }`}
             >
@@ -146,7 +138,7 @@ useEffect(() => {
             <div className="relative inline-block">
               <div
                 ref={buttonRef}
-                className="px-4 py-2 text-white bg-gray-800 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm inline-flex items-center z-10"
+                className=" max-sm:px-2 max-sm:py-1 px-4 py-2 text-white bg-gray-800 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm inline-flex items-center z-10"
                 onClick={toggleDropdown}
               >
                 {selectedOption} <svg className="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
@@ -176,22 +168,25 @@ useEffect(() => {
           </div>
         </div>
       </div>
-      <div className="wrapper   grid  ">
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="wrapper grid mt-10">
+        <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {data.length > 0 ? (
             data.map((event, index) => (
               <Event key={index} event={event} />
-            )
-            )
-          ) : loading ? ( // Show a loading indicator if data is being fetched
+            ))
+          ) : loading ? (
             <div className='h-[100vh] flex items-center justify-center'>
               <CircleLoader />
             </div>
           ) : null}
-         
           <div ref={ref} />
         </div>
       </div>
+          {loading && (
+            <div className='h-16 mt-90% top-[90%] flex items-center justify-center '>
+              <CircleLoader />
+            </div>
+          )}
       <Footer />
     </>
   );

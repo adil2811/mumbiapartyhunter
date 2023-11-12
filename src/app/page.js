@@ -39,8 +39,8 @@ export default function Home() {
       {loading ? (
         <CircleLoader /> // Show CircleLoader while events are being fetched
       ) : (
-        <div class='wrapper h-auto grid place-items-center'>
-          <div class='grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3'>
+        <div class='wrapper  grid sm:place-items-center'>
+          <div class='grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-3'>
             {events.map((event, index) => (
               <Event key={index} event={event} />
             ))}
