@@ -36,6 +36,8 @@ export default function Event({ event }) {
                 <div className="absolute flex flex-col top-0 right-0 p-3">
                 
                 </div>
+             
+
                 <Image src={event.images[0]} width={300} height={50} alt="Just a flower" loading="lazy" 	 className="object-cover  rounded-2xl" 	  />
               </div>
               <div className="flex-auto justify-evenly">

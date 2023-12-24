@@ -1,24 +1,18 @@
-'use client'
+'use client';
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import React,{useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "@/Components/navbar";
 import CircleLoader from "@/Components/CircleLoader";
-import img from '../../../public/logo mph.png'
+import img from '../../../public/logo mph.png';
 import Image from "next/image";
-
-
-interface User {
-  email: string;
-  password: string;
-}
 
 export default function LoginPage() {
   const router = useRouter();
-  const [user, setUser] = React.useState<User>({
+  const [user, setUser] = React.useState({
     email: "",
     password: "",
   });
@@ -30,21 +24,21 @@ export default function LoginPage() {
     try {
       setLoading(true);
       const response = await axios.post("/api/login", user);
+      router.push("/");
       console.log("Login success", response.data);
       toast.success('🦄 Wow so easy!', {
         position: "top-right",
-        autoClose: 1000,
+        autoClose: 400,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
         theme: "light",
-        });
-              router.push("/");
+      });
     } catch (error) {
       console.log("Login failed", error.message);
-      toast.error(error.message);
+      toast.error(error.unknown);
     } finally {
       setLoading(false);
     }
@@ -58,7 +52,7 @@ export default function LoginPage() {
     }
   }, [user]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
     setUser((prevUser) => ({
       ...prevUser,
@@ -66,13 +60,13 @@ export default function LoginPage() {
     }));
   };
 
-  const handleRememberMeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleRememberMeChange = (e) => {
     setRememberMe(e.target.checked);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    // Add any  form submission logic if needed
+    // Add any form submission logic if needed
   };
 
   return (
@@ -80,7 +74,7 @@ export default function LoginPage() {
       <Navbar />
       <ToastContainer />
       {loading ? (
-        <CircleLoader /> // Display the loader when loading is true
+        <CircleLoader /> 
       ) : (
         <div className="flex justify-center mx-auto">
           <div className="flex flex-col justify-center">
@@ -97,7 +91,7 @@ export default function LoginPage() {
                             value={user.email}
                             onChange={handleInputChange}
                             className="bg-gray-100 rounded-lg px-5 py-2 focus:border border-blue-600 focus:outline-none text-black placeholder:text-gray-600 placeholder:opacity-50 font-semibold md:w-72 lg:w-[340px]"
-                            />
+                          />
 
                           <div className="m-2 text-white">PASSWORD</div>
                           <input
