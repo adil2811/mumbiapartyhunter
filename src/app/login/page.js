@@ -26,16 +26,7 @@ export default function LoginPage() {
       const response = await axios.post("/api/login", user);
       router.push("/");
       console.log("Login success", response.data);
-      toast.success('🦄 Wow so easy!', {
-        position: "top-right",
-        autoClose: 400,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+ 
     } catch (error) {
       console.log("Login failed", error.message);
       toast.error(error.unknown);
