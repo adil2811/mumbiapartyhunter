@@ -1,6 +1,6 @@
 import { connect } from "@/dbConfig/dbConfig";
 import Event from "../../../models/Event";
-import { NextResponse } from "@next/server";
+import { NextResponse } from "next/server";
 
 export async function GET(request) {
   connect();
