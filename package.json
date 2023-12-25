@@ -21,7 +21,7 @@
     "eslint-config-next": "^14.0.4",
     "framer-motion": "^10.16.4",
     "jsonwebtoken": "^9.0.2",
-    "mongodb": "^6.2.0",
+    "mongodb": "^6.3.0",
     "mongodb-client-encryption": "^6.0.0",
     "mongoose": "^8.0.0",
     "multiparty": "^4.2.3",
