@@ -5,7 +5,9 @@ import { NextResponse } from "next/server";
 export async function GET(request) {
   connect();
   try {
-    const searchParams = request.nextUrl.searchParams || '';
+    const url = new URL(request.url);
+
+    const searchParams = url.searchParams ;
     const searchQuery = searchParams.get('searchQuery');
 
     let events;
