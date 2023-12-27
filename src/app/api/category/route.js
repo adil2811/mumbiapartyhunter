@@ -6,11 +6,12 @@ export async function GET(request) {
   connect(); // Ensure this establishes a connection to the database
 
   try {
-    const { category, price } = request.query;
+    const { query: e = {} } = request; // Destructuring with default empty object
+    const { category, price } = e;
 
     // Validate input data
     if (!category && !price) {
-      return new NextResponse.Error("Please provide valid category or price", 400);
+      throw new Error("Please provide valid category or price");
     }
 
     // Define an initial query object
@@ -23,7 +24,7 @@ export async function GET(request) {
     if (price !== undefined && price !== '') {
       const parsedPrice = parseInt(price, 10);
       if (isNaN(parsedPrice)) {
-        return new NextResponse.Error("Invalid price format", 400);
+        throw new Error("Invalid price format");
       }
       query.price = { $lte: parsedPrice }; // Add price filter (e.g., less than or equal)
     }
