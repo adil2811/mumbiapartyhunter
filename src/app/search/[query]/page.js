@@ -4,23 +4,24 @@ import Navbar from "@/Components/navbar/index.js";
 import Event from "@/Components/Event/index.js";
 import Footer from "@/Components/Footer/index.js";
 import { getSearch } from "../../../app/libs/getdata";
-import { useParams } from "next/navigation";
+import {  useSearchParams } from "next/navigation";
 import CircleLoader from "@/Components/CircleLoader/index.js";
 
 export default function Page() {
-  const params = useParams();
+  
+  const params = useSearchParams();
   const [data, setData] = useState(null);
 
-  useEffect(() => {
-    async function fetchData() {
-      const searchQuery = params.query;
-      console.log(searchQuery);
-      const searchData = await getSearch(searchQuery);
-      setData(searchData);
-    }
-    // Only run the effect when params.query changes
-    fetchData();
-  }, [params.query]);
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const searchQuery = params.query;
+  //     console.log(searchQuery);
+  //     const searchData = await getSearch(searchQuery);
+  //     setData(searchData);
+  //   }
+  //   // Only run the effect when params.query changes
+  //   fetchData();
+  // }, [params.query]);
 
 
   return (
