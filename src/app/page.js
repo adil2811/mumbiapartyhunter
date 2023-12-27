@@ -3,6 +3,7 @@ import Banner from '@/Components/banner/index.js';
 import Feature from '@/Components/feature/index.js';
 import Event from '@/Components/Event/index.js';
 import Footer from '@/Components/Footer/index.js';
+import CircleLoader from '@/Components/CircleLoader';
 
 
 
