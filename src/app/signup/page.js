@@ -1,9 +1,9 @@
-'use client'
+'use client';
 // Make sure to install react-hot-toast via npm or yarn
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import Navbar from '@/Components/navbar';
@@ -11,13 +11,13 @@ import CircleLoader from '@/Components/CircleLoader';
 
 const SignupPage = () => {
   const router = useRouter();
-  const [user, setUser] = React.useState({
+  const [user, setUser] = useState({
     email: '',
     password: '',
     username: '',
   });
-  const [buttonDisabled, setButtonDisabled] = React.useState(false);
-  const [loading, setLoading] = React.useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const onSignup = async () => {
     try {
@@ -109,7 +109,10 @@ const SignupPage = () => {
               <h1 className="">Sign Up and discover new opportunities here</h1>
               <button
                 onClick={() => router.push('/login')} 
-              className="bg-white rounded-2xl px-4 text-emerald-400 py-1">login in</button>
+                className="bg-white rounded-2xl px-4 text-emerald-400 py-1"
+              >
+                login in
+              </button>
             </div>
           </div>
         </div>
