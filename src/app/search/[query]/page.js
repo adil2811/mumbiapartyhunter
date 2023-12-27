@@ -10,6 +10,7 @@ import CircleLoader from "@/Components/CircleLoader/index.js";
 export default function Page() {
   const params = useParams();
   const [data, setData] = useState(null);
+console.log('✌️data --->', data);
 
   useEffect(() => {
     async function fetchData() {

@@ -1,10 +1,22 @@
+import Event from "../../../../models/Event";
 import { connect } from "@/dbConfig/dbConfig";
-import Event from "../../../models/Event";
+import { NextResponse } from "next/server";
 
-export async function GET(request) {
+
+
+
+export async function GET(request,response) {
+  connect();
   try {
-    const searchParams = new URL(request.url).searchParams;
-    const searchQuery = searchParams.get('searchQuery');
+    
+    console.log(response.params.search)
+    const { search } = response.params; // Use request.params instead of response.params
+console.log('✌️search --->', search);
+const splitSearch = search.split('=');
+const searchQuery = splitSearch[1]; // Getting the value after '='
+
+
+        console.log('✌️searchQuery --->', searchQuery);
 
     let events;
 
@@ -25,18 +37,19 @@ export async function GET(request) {
     }
 
     if (!events || events.length === 0) {
-      // Return an error Response if no events were found
-      return Response.status(404).json({
+      // Return an error response if no events were found
+      return NextResponse.json({
         message: "No verified events found",
         error: true,
       });
     }
 
-    return Response.status(200).json(events); // Return events with a success status
+    return NextResponse.json(events); // Return a new Response object
+console.log('✌️events --->', events);
   } catch (error) {
     console.error(error);
     // Handle errors gracefully
-    return Response.status(500).json({
+    return NextResponse.json({
       message: "An error occurred",
       error: true,
     });

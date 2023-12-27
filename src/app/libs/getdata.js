@@ -21,7 +21,7 @@ export async function getCatTitle() {
 }
 
 export async function getSearch(query) {
-    const response = await fetch(`http://localhost:3000/api/search?searchQuery=${query}`,
+    const response = await fetch(`http://localhost:3000/api/search/searchQuery=${query}`,
     {
       method: "GET",
     }
