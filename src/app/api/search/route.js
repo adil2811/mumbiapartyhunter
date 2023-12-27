@@ -25,18 +25,18 @@ export async function GET(request) {
     }
 
     if (!events || events.length === 0) {
-      // Return an error response if no events were found
-      return Response.json({
+      // Return an error Response if no events were found
+      return Response.status(404).json({
         message: "No verified events found",
         error: true,
       });
     }
 
-    return Response.json(events); // Return a new Response object
+    return Response.status(200).json(events); // Return events with a success status
   } catch (error) {
     console.error(error);
     // Handle errors gracefully
-    return Response.json({
+    return Response.status(500).json({
       message: "An error occurred",
       error: true,
     });
