@@ -11,7 +11,9 @@ export async function GET(request) {
     if (!category && !price) {
       return new NextResponse.Error("Please provide valid category or price", 400);
     }
-
+    if (category === undefined && price === undefined) {
+      return new NextResponse.Error("Please provide valid category or price", 400);
+    }
     // Define an initial query object
     const query = {};
 
