@@ -29,7 +29,10 @@ export async function GET(request) {
       query.price = { $lte: parsedPrice }; // Add price filter (e.g., less than or equal)
     }
 
-    const events = await Event.find(query);
+    // Sanitize and validate inputs before using in the query
+    const validatedQuery = validateAndSanitizeQuery(query);
+
+    const events = await Event.find(validatedQuery);
 
     return new NextResponse.JSON(events);
   } catch (error) {
@@ -42,4 +45,26 @@ export async function GET(request) {
       return new NextResponse.JSON({ error: "An unexpected error occurred" }, { status: 500 });
     }
   }
+}
+
+function validateAndSanitizeQuery(query) {
+  // Implement your validation and sanitization logic here
+  // Make sure to handle all user inputs and sanitize them properly
+  // For instance, you might use a library like validator.js for validation
+  // and escape/sanitize user inputs to prevent injection attacks
+  // Example: Sanitization and validation for MongoDB query
+  const sanitizedQuery = {};
+
+  if (query.category) {
+    sanitizedQuery.category = query.category.toString(); // Assuming category is a string
+  }
+
+  if (query.price) {
+    const parsedPrice = parseInt(query.price, 10);
+    if (!isNaN(parsedPrice)) {
+      sanitizedQuery.price = { $lte: parsedPrice };
+    }
+  }
+
+  return sanitizedQuery;
 }
