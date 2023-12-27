@@ -11,7 +11,10 @@ export async function GET(request) {
 
     // Validate input data
     if (!category && !price) {
-      throw new Error("Please provide valid category or price");
+      
+      throw  new NextResponse.JSON({ error: "Invalid price format" }, { status: 500 }); 
+
+      
     }
 
     // Define an initial query object
@@ -24,7 +27,7 @@ export async function GET(request) {
     if (price !== undefined && price !== '') {
       const parsedPrice = parseInt(price, 10);
       if (isNaN(parsedPrice)) {
-        throw new Error("Invalid price format");
+        new NextResponse.JSON({ error: "Invalid price format" }, { status: 500 }); 
       }
       query.price = { $lte: parsedPrice }; // Add price filter (e.g., less than or equal)
     }
@@ -33,7 +36,13 @@ export async function GET(request) {
 
     return new NextResponse.JSON(events);
   } catch (error) {
-    console.error(error);
-    return new NextResponse.Error("An error occurred", 500);
+    if (error.message === "Please provide valid category or price") {
+      return new NextResponse.JSON({ error: error.message }, { status: 400 }); // Return 400 for bad request
+    } else if (error.message === "Invalid price format") {
+      return new NextResponse.JSON({ error: error.message }, { status: 400 });
+    } else {
+      console.error(error);
+      return new NextResponse.JSON({ error: "An unexpected error occurred" }, { status: 500 });
+    }
   }
 }
