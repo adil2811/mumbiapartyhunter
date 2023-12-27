@@ -25,6 +25,8 @@ const CartItems = () => {
         },
         body: JSON.stringify({ ids: cartProducts }),
       })
+
+      
         .then((response) => {
           if (!response.ok) {
             throw new Error('Network response was not ok');
