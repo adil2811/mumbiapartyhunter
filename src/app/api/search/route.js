@@ -1,9 +1,7 @@
 import { connect } from "@/dbConfig/dbConfig";
 import Event from "../../../models/Event";
-import { NextResponse } from "next/server";
 
 export async function GET(request) {
-  connect();
   try {
     const searchParams = new URL(request.url).searchParams;
     const searchQuery = searchParams.get('searchQuery');
@@ -28,17 +26,17 @@ export async function GET(request) {
 
     if (!events || events.length === 0) {
       // Return an error response if no events were found
-      return NextResponse.json({
+      return Response.json({
         message: "No verified events found",
         error: true,
       });
     }
 
-    return NextResponse.json(events); // Return a new Response object
+    return Response.json(events); // Return a new Response object
   } catch (error) {
     console.error(error);
     // Handle errors gracefully
-    return NextResponse.json({
+    return Response.json({
       message: "An error occurred",
       error: true,
     });
