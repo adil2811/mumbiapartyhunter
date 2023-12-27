@@ -3,7 +3,8 @@ import Event from "../../../models/Event";
 import { NextResponse } from "next/server";
 
 export async function GET(request) {
-  connect();
+  connect(); // Ensure this establishes a connection to the database
+
   try {
     const { category, price } = request.query;
 
@@ -11,17 +12,15 @@ export async function GET(request) {
     if (!category && !price) {
       return new NextResponse.Error("Please provide valid category or price", 400);
     }
-    if (category === undefined && price === undefined) {
-      return new NextResponse.Error("Please provide valid category or price", 400);
-    }
+
     // Define an initial query object
     const query = {};
 
-    if (category) {
-      query.category = category; // Add category filter
+    if (category !== undefined && category !== '') {
+      query.category = category; // Add category filter if it exists and is not empty
     }
 
-    if (price) {
+    if (price !== undefined && price !== '') {
       const parsedPrice = parseInt(price, 10);
       if (isNaN(parsedPrice)) {
         return new NextResponse.Error("Invalid price format", 400);
