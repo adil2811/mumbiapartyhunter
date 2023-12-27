@@ -6,9 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Category } from '../../models/Category.js';
 
 export default function Event({ event }) {
-  if (!event) {
-    return null; // If event is null or undefined, don't render anything
-  }
+
   const { cartProducts, setCartProducts, addproduct } = useContext(CartContext);
   const router = useRouter();
   const [categoryTitle, setCategoryTitle] = useState('');
