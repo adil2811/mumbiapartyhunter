@@ -2,7 +2,7 @@
 
 
 export async function getEvents() {
-  const response = await fetch('http://localhost:3000/api/search?isVerified=true')
+  const response = await fetch('/api/search?isVerified=true')
 
   if (!response.ok) {
     throw new Error('failed to fetch events')
@@ -11,7 +11,7 @@ export async function getEvents() {
   return await response.json()
 }
 export async function getCatTitle() {
-  const response = await fetch('http://localhost:3000/api/cattitle')
+  const response = await fetch('/api/cattitle')
 
   if (!response.ok) {
     throw new Error('failed to fetch events')
@@ -21,7 +21,7 @@ export async function getCatTitle() {
 }
 
 export async function getSearch(query) {
-    const response = await fetch(`http://localhost:3000/api/search/searchQuery=${query}`,
+    const response = await fetch(`/api/search/searchQuery=${query}`,
     {
       method: "GET",
     }
@@ -36,7 +36,7 @@ export async function getSearch(query) {
   
   export async function getCategory(page, limit, category,sort, order) {
     // Define the URL and query parameters
-    const apiUrl = 'http://localhost:3000/api/createevent'; // Replace with the actual API endpoint URL
+    const apiUrl = '/api/createevent'; // Replace with the actual API endpoint URL
     const queryParams = new URLSearchParams({
       page: page, // Replace with the desired page number
       limit: limit, // Replace with the desired limit
