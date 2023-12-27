@@ -11,10 +11,7 @@ export async function GET(request) {
 
     // Validate input data
     if (!category && !price) {
-      
-      throw  new NextResponse.JSON({ error: "Invalid price format" }, { status: 500 }); 
-
-      
+      throw new Error("Please provide valid category or price");
     }
 
     // Define an initial query object
@@ -27,7 +24,7 @@ export async function GET(request) {
     if (price !== undefined && price !== '') {
       const parsedPrice = parseInt(price, 10);
       if (isNaN(parsedPrice)) {
-        new NextResponse.JSON({ error: "Invalid price format" }, { status: 500 }); 
+        throw new Error("Invalid price format");
       }
       query.price = { $lte: parsedPrice }; // Add price filter (e.g., less than or equal)
     }
