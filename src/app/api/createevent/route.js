@@ -39,7 +39,9 @@ export async function POST(request){
 
 export async function GET(request) {
   try {
-    const searchParams = request.nextUrl.searchParams;
+    const url = new URL(request.url);
+
+    const searchParams = url.searchParams;
     const page = parseInt(searchParams.get('page')) || 1;
     const limit = parseInt(searchParams.get('limit')) || 2 ;
     const category = searchParams.get('category');
