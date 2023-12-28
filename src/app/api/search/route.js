@@ -1,13 +1,15 @@
-import Event from "../../../models/Event";
+
 import { connect } from "@/dbConfig/dbConfig";
+import Event from "@/models/Event";
 import { NextResponse } from "next/server";
 
 export async function GET(request, response) {
   connect();
 
   try {
+    
     // Assuming your Event model has a property called isVerify
-    const verifiedEvents = await Event.find({ isVerify: true });
+    const verifiedEvents = await Event.find({ isVerified: true });
 
     // Handle the response with the verified events
     return NextResponse.json(verifiedEvents);
