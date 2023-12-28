@@ -39,37 +39,29 @@ export async function POST(request){
 
 export async function GET(request) {
   try {
-    const url = new URL(request.url);
-    const searchParams = url.searchParams;
+    const { searchParams } = new URL(request.url);
 
-    const defaultPage = 1;
-    const defaultLimit = 2;
-    const defaultSort = 'price';
-    const defaultOrder = 'asc';
+    // Extract and validate query parameters efficiently
+    const { page = 1, limit = 2, category, sort = 'price', order = 'asc' } = Object.fromEntries(
+      Array.from(searchParams.entries())
+        .filter(([key]) => key in ['page', 'limit', 'category', 'sort', 'order'])
+        .map(([key, value]) => [key, value === '' ? undefined : value])
+    );
 
-    const page = parseInt(searchParams.get('page')) || defaultPage;
-    const limit = parseInt(searchParams.get('limit')) || defaultLimit;
-    const category = searchParams.get('category');
-    const sort = searchParams.get('sort') || defaultSort;
-    const order = searchParams.get('order') || defaultOrder;
-
-    if (isNaN(page) || isNaN(limit) || page < 1 || limit < 1) {
+    // Validate parameters with early returns for errors
+    if (isNaN(page) || page < 1 || isNaN(limit) || limit < 1) {
       return getResponseMessage("Invalid page or limit query parameters", 400, false);
     }
-
     if (order !== 'asc' && order !== 'desc') {
       return getResponseMessage("Invalid order parameter. Use 'asc' or 'desc'.", 400, false);
     }
 
     const skip = (page - 1) * limit;
-
     const filter = {
-      ...(category === 'ALLALLALLALLALLALLALLALL' ? {} : { category }),
+      ...(category ? { category } : {}), // Use optional chaining for conciseness
       isVerified: true,
     };
-
-    const sortObject = {};
-    sortObject[sort] = order === 'asc' ? 1 : -1;
+    const sortObject = { [sort]: order === 'asc' ? 1 : -1 }; // Direct object property syntax
 
     const events = await Event.find(filter)
       .sort(sortObject)
@@ -82,4 +74,5 @@ export async function GET(request) {
     return getResponseMessage("Error fetching events", 500, false);
   }
 }
+
 
