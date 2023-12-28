@@ -10,7 +10,7 @@ import CircleLoader from '@/Components/CircleLoader';
 async function fetchData() {
   try {
     // Replace 'YOUR_ENDPOINT' with the actual API endpoint
-    const response = await fetch(`http://localhost:3000/api/search`);
+    const response = await fetch(`${process.env.DOMAIN}/api/search`);
     if (!response.ok) {
       throw new Error('Network response was not ok.');
     }
