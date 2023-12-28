@@ -39,29 +39,31 @@ export async function POST(request){
 
 export async function GET(request) {
   try {
-    const { searchParams } = new URL(request.url);
+    const searchParams = request.nextUrl.searchParams;
+    const page = parseInt(searchParams.get('page')) || 1;
+    const limit = parseInt(searchParams.get('limit')) || 10;
+    const category = searchParams.get('category');
+    const sort = searchParams.get('sort') || 'price';
+    const order = searchParams.get('order') || 'asc';
 
-    // Extract and validate query parameters efficiently
-    const { page = 1, limit = 2, category, sort = 'price', order = 'asc' } = Object.fromEntries(
-      Array.from(searchParams.entries())
-        .filter(([key]) => key in ['page', 'limit', 'category', 'sort', 'order'])
-        .map(([key, value]) => [key, value === '' ? undefined : value])
-    );
-
-    // Validate parameters with early returns for errors
-    if (isNaN(page) || page < 1 || isNaN(limit) || limit < 1) {
+    if (isNaN(page) || isNaN(limit) || page < 1 || limit < 1) {
       return getResponseMessage("Invalid page or limit query parameters", 400, false);
     }
+
     if (order !== 'asc' && order !== 'desc') {
       return getResponseMessage("Invalid order parameter. Use 'asc' or 'desc'.", 400, false);
     }
 
     const skip = (page - 1) * limit;
+
+    // Build the filter object with the category and isVerified true condition
     const filter = {
-      ...(category ? { category } : {}), // Use optional chaining for conciseness
-      isVerified: true,
+      ... (category === 'ALLALLALLALLALLALLALLALL' ? {} : { category }),
+      isVerified: true, // Add this condition for isVerified true
     };
-    const sortObject = { [sort]: order === 'asc' ? 1 : -1 }; // Direct object property syntax
+
+    const sortObject = {};
+    sortObject[sort] = order === 'asc' ? 1 : -1;
 
     const events = await Event.find(filter)
       .sort(sortObject)
@@ -74,5 +76,3 @@ export async function GET(request) {
     return getResponseMessage("Error fetching events", 500, false);
   }
 }
-
-
