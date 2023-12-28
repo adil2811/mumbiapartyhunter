@@ -40,13 +40,18 @@ export async function POST(request){
 export async function GET(request) {
   try {
     const url = new URL(request.url);
-
     const searchParams = url.searchParams;
-    const page = parseInt(searchParams.get('page')) || 1;
-    const limit = parseInt(searchParams.get('limit')) || 2 ;
+
+    const defaultPage = 1;
+    const defaultLimit = 2;
+    const defaultSort = 'price';
+    const defaultOrder = 'asc';
+
+    const page = parseInt(searchParams.get('page')) || defaultPage;
+    const limit = parseInt(searchParams.get('limit')) || defaultLimit;
     const category = searchParams.get('category');
-    const sort = searchParams.get('sort') || 'price';
-    const order = searchParams.get('order') || 'asc';
+    const sort = searchParams.get('sort') || defaultSort;
+    const order = searchParams.get('order') || defaultOrder;
 
     if (isNaN(page) || isNaN(limit) || page < 1 || limit < 1) {
       return getResponseMessage("Invalid page or limit query parameters", 400, false);
@@ -58,10 +63,9 @@ export async function GET(request) {
 
     const skip = (page - 1) * limit;
 
-    // Build the filter object with the category and isVerified true condition
     const filter = {
-      ... (category === 'ALLALLALLALLALLALLALLALL' ? {} : { category }),
-      isVerified: true, // Add this condition for isVerified true
+      ...(category === 'ALLALLALLALLALLALLALLALL' ? {} : { category }),
+      isVerified: true,
     };
 
     const sortObject = {};
@@ -78,3 +82,4 @@ export async function GET(request) {
     return getResponseMessage("Error fetching events", 500, false);
   }
 }
+
