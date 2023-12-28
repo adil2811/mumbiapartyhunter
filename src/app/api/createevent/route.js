@@ -41,7 +41,7 @@ export async function GET(request) {
   try {
     const searchParams = request.nextUrl.searchParams;
     const page = parseInt(searchParams.get('page')) || 1;
-    const limit = parseInt(searchParams.get('limit')) || 10;
+    const limit = parseInt(searchParams.get('limit')) || 2 ;
     const category = searchParams.get('category');
     const sort = searchParams.get('sort') || 'price';
     const order = searchParams.get('order') || 'asc';

@@ -35,6 +35,10 @@ export async function getSearch(query) {
   }
   
   export async function getCategory(page, limit, category,sort, order) {
+console.log('✌️sort --->', sort);
+console.log('✌️category --->', category);
+console.log('✌️limit --->', limit);
+console.log('✌️page --->', page);
     // Define the URL and query parameters
     const apiUrl = '/api/createevent'; // Replace with the actual API endpoint URL
     const queryParams = new URLSearchParams({
@@ -46,6 +50,7 @@ export async function getSearch(query) {
     });
   
     const fullUrl = `${apiUrl}?${queryParams.toString()}`;
+console.log('✌️fullUrl --->', fullUrl);
   
     try {
       // Make the GET request and await the response
