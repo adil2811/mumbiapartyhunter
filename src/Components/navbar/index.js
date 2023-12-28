@@ -29,11 +29,7 @@ export default function Navbar() {
       title: "Event",
       path: "/filterevent",
     },
-    {
-      id: "movies",
-      title: "Movies",
-      path: "/",
-    },
+   
     {
       id: "list-Event",
       title: "List-Event",

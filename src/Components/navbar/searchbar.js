@@ -44,7 +44,8 @@ export default function Search({
             onKeyUp={handleSubmit}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search Event"
-            className="max-sm:w-[160px] placeholder:text-[13px] bg-transparent text-[16px] font-medium h-[34px] px-4 py-2  font-md text-white outline-none w-[210px]  max-sm:text-[13px] "
+            className="max-sm:w-[160px] placeholder:text-[13px] bg-transparent text-[16px] font-medium h-[34px] px-4 py-2  font-md text-white outline-none w-[210px]  max-sm:text-[13
+              px] "
           />
         </div>
         <button className="px-2.5">

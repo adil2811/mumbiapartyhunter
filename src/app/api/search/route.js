@@ -7,7 +7,7 @@ export async function GET(request, response) {
   connect();
 
   try {
-    
+    console.log('eventhit')
     // Assuming your Event model has a property called isVerify
     const verifiedEvents = await Event.find({ isVerified: true });
 
