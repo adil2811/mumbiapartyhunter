@@ -64,8 +64,10 @@ export default function ProductDetails({ params }) {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row -mx-4">
           <div className="md:flex-1 px-4">
-            <div className="h-[460px] rounded-lg bg-black dark:bg-gray-700 mb-4">
-             <Image src={product.images[0]} width={200} height={200}/>
+            <div className="h-500 w-600 rounded-lg bg-black dark:bg-gray-700 mb-4">
+             <Image src={product.images[0]} width={600} height={500}
+                className='object-cover'
+             />
             </div>
             <div className="flex -mx-2 mb-4">
               <div className="w-1/2 px-2">
@@ -91,36 +93,33 @@ export default function ProductDetails({ params }) {
             {product.company}            </p>
             <div className="flex mb-4">
               <div className="mr-4">
-                <span className="font-bold text-gray-700 dark:text-gray-300">Price:</span>
-                <span className="text-gray-600 dark:text-gray-300">${product.price}</span>
+                <span className="font-bold text-white dark:text-gray-300">Price:</span>
+                <span className="text-white dark:text-gray-300">$<b>
+                  {product.price}
+                  
+                  </b>
+                  </span>
               </div>
               <div>
-                <span className="font-bold text-gray-700 dark:text-gray-300">Rating:</span>
-                <span className="text-gray-600 dark:text-gray-300">{product.rating}</span>
-              </div>
-            </div>
-            <div className="mb-4">
-              <span className="font-bold text-gray-700 dark:text-gray-300">Select Color:</span>
-              <div className="flex items-center mt-2">
-                <button className="w-6 h-6 rounded-full bg-gray-800 dark:bg-gray-200 mr-2"></button>
-                <button className="w-6 h-6 rounded-full bg-red-500 dark:bg-red-700 mr-2"></button>
-                <button className="w-6 h-6 rounded-full bg-blue-500 dark:bg-blue-700 mr-2"></button>
-                <button className="w-6 h-6 rounded-full bg-yellow-500 dark:bg-yellow-700 mr-2"></button>
-              </div>
-            </div>
-            <div className="mb-4">
-              <span className="font-bold text-gray-700 dark:text-gray-300">Select Size:</span>
-              <div className="flex items-center mt-2">
-                <button className="bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-white py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400 dark:hover:bg-gray-600">S</button>
-                <button className="bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-white py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400 dark:hover:bg-gray-600">M</button>
-                <button className="bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-white py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400 dark:hover:bg-gray-600">L</button>
-                <button className="bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-white py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400 dark:hover:bg-gray-600">XL</button>
-                <button className="bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-white py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400 dark:hover:bg-gray-600">XXL</button>
+                <span className="font-bold text-white dark:text-gray-300">Rating:</span>
+                <span className="text-white dark:text-gray-300">{product.rating?product.rating:' Null' }</span>
               </div>
             </div>
             <div>
-              <span className="font-bold text-gray-700 dark:text-gray-300">Product Description:</span>
-              <p className="text-gray-600 dark:text-gray-300 text-sm mt-2">
+
+            </div>
+            <div>
+
+            <span className="font-bold text-white dark:text-gray-300">Category: Party and wellness</span>
+            </div>
+            <div className='mt-3'>
+
+<span className="font-bold text-white dark:text-gray-300 ">Date: 31/12/2024 </span>
+</div>
+
+            <div className='mt-5'>
+              <span className="font-bold text-white dark:text-gray-300 ">Product Description:</span>
+              <p className="text-white dark:text-gray-300 text-sm mt-2">
              {product.description}
               </p>
             </div>

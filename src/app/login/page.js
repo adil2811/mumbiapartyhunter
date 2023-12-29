@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios from "axios";
@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import React, { useEffect, useState } from "react";
 import Navbar from "@/Components/navbar";
 import CircleLoader from "@/Components/CircleLoader";
-import img from '../../../public/logo mph.png';
+import img from "../../../public/logo mph.png";
 import Image from "next/image";
 
 export default function LoginPage() {
@@ -19,6 +19,7 @@ export default function LoginPage() {
   const [rememberMe, setRememberMe] = React.useState(false);
   const [buttonDisabled, setButtonDisabled] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const onLogin = async () => {
     try {
@@ -26,7 +27,6 @@ export default function LoginPage() {
       setLoading(true);
       router.push("/");
       console.log("Login success", response.data);
- 
     } catch (error) {
       console.log("Login failed", error.message);
       toast.error(error.unknown);
@@ -42,6 +42,9 @@ export default function LoginPage() {
       setButtonDisabled(true);
     }
   }, [user]);
+  const handleShowPassword = () => {
+    setShowPassword((prevState) => !prevState);
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -65,7 +68,7 @@ export default function LoginPage() {
       <Navbar />
       <ToastContainer />
       {loading ? (
-        <CircleLoader /> 
+        <CircleLoader />
       ) : (
         <div className="flex justify-center mx-auto">
           <div className="flex flex-col justify-center">
@@ -90,7 +93,7 @@ export default function LoginPage() {
                             value={user.password}
                             onChange={handleInputChange}
                             className="bg-gray-100 rounded-lg px-5 py-2 focus:border border-blue-600 focus:outline-none text-black placeholder:text-gray-600 placeholder:opacity-50 font-semibold md:w-72 lg:w-[340px]"
-                            type="password"
+                            type={showPassword ? "text" : "password"} // Toggle between text and password types
                           />
                           <div className="flex m-2">
                             <input
@@ -99,8 +102,9 @@ export default function LoginPage() {
                               onChange={handleRememberMeChange}
                               className="border-b border-stone-400"
                               type="checkbox"
+                              onClick={handleShowPassword} // Call the handleShowPassword function
                             />
-                            <div className="ml-1 text-white">Remember Me</div>
+                            <div className="ml-1 text-white">Show Password</div>
                           </div>
                           <div className="flex m-2">
                             <button
@@ -117,7 +121,6 @@ export default function LoginPage() {
                               CREATE ACCOUNT
                             </button>
                           </div>
-                       
                         </div>
                       </div>
                     </div>
