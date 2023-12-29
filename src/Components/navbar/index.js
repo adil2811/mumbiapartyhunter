@@ -103,7 +103,7 @@ export default function Navbar() {
                   setShowSearchBar(false);
                   setShouldCloseMenu(true);
                 }}
-                className="cursor-pointer text-[16px] font-light text-[#e5e5e5] transition duration-[.4s] hover:text-purple-600"
+                className="cursor-pointer text-[20px] font-light text-[#e5e5e5] transition duration-[.4s] hover:text-purple-600"
                 key={item.id}
               >
                 {item.title}
