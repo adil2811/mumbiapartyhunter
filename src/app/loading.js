@@ -12,8 +12,8 @@ const loadingStyles = {
 };
 
 const gifStyles = {
-  width: '200px', // Adjust the width as needed
-  height: '200px', // Adjust the height as needed
+  width: '200px', 
+  height: '200px',
 };
 
 export default function Loading() {

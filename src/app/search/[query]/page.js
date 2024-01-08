@@ -27,7 +27,6 @@ export default function Page() {
         console.error('Error fetching data:', error);
       }
     }
-    // Only run the effect when params.query changes
     fetchData();
   }, [params.query]);
 

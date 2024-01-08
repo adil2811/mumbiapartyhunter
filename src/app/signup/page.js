@@ -1,5 +1,4 @@
 "use client";
-// Make sure to install react-hot-toast via npm or yarn
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -106,8 +105,7 @@ const SignupPage = () => {
               <div>
                 <input
                   id="password"
-                  type={showPassword ? "text" : "password"} // Toggle between text and password types
-                  value={user.password}
+                  type={showPassword ? "text" : "password"} 
                   onChange={(e) =>
                     setUser({ ...user, password: e.target.value })
                   }
@@ -116,11 +114,10 @@ const SignupPage = () => {
                 />
               </div>
               <div className="flex flex-col justify-center items-center m-2 space-y-6 md:space-y-8">
-                {/* Other input fields */}
                 <div>
                   <input
                     id="confirmPassword"
-                    type={showPassword ? "text" : "password"} // Toggle between text and password types
+                    type={showPassword ? "text" : "password"} 
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="confirm password"
@@ -136,14 +133,14 @@ const SignupPage = () => {
                               onChange={handleRememberMeChange}
                               className="border-b border-stone-400"
                               type="checkbox"
-                              onClick={handleShowPassword} // Call the handleShowPassword function
+                              onClick={handleShowPassword} 
                             />
                             <div className="ml-1 text-white">Show Password</div>
                           </div>
             <div className="text-center mt-7">
               <button
                 onClick={onSignup}
-                disabled={buttonDisabled || user.password !== confirmPassword} // Disable button if passwords don't match
+                disabled={buttonDisabled || user.password !== confirmPassword} 
                 className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600"
               >
                 {buttonDisabled || user.password !== confirmPassword

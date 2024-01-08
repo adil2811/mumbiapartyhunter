@@ -25,21 +25,17 @@ export async function PUT(request, { params }) {
     try {
       const { title, description, h1, category } = await request.json();
   
-      // Use the "findOne" method to find the event with the specified userId
       let event = await Event.findOne({ userId: id });
   
       if (!event) {
-        // Handle the case when the event is not found
         return new Response("Event not found", { status: 404 });
       }
   
-      // Update the event properties
       event.title = title;
       event.description = description;
       event.h1 = h1;
       event.category = category;
   
-      // Save the updated event
       const updateEvent = await event.save();
   
       return new Response(JSON.stringify(updateEvent), {
@@ -53,7 +49,7 @@ export async function PUT(request, { params }) {
         message: "Failed to update: " + error,
         success: false,
       }), {
-        status: 500, // Internal Server Error
+        status: 500, 
         headers: {
           "Content-Type": "application/json",
         },

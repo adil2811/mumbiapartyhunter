@@ -22,7 +22,7 @@ export default function ProductDetails({ params }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`/api/singleevent/${params.id}`); // Replace with the correct API route
+        const response = await fetch(`/api/singleevent/${params.id}`); 
         if (response.ok) {
           const productData = await response.json();
           setProduct(productData);

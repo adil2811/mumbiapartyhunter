@@ -15,18 +15,17 @@ function Page() {
   const defaultSelectedButtonIndex = 0;
   const [selectedButton, setSelectedButton] = useState(defaultSelectedButtonIndex);
   const [data, setData] = useState([]);
-  const [page, setPage] = useState(1); // Initial page number
+  const [page, setPage] = useState(1); 
   const [loading, setLoading] = useState(false);
   const [hasMoreData, setHasMoreData] = useState(true);
 
   const handleToggle = (index) => {
     setSelectedButton(index);
-    setData([]); // Clear the data array
-    setPage(1); // Reset the page number to 1
-    setHasMoreData(true); // Reset hasMoreData
+    setData([]); 
+    setPage(1); 
+    setHasMoreData(true); 
   };
 
-  // Define buttonLabels here
   const buttonLabels = [
     "ALLALLALLALLALLALLALLALLALL",
     '6536505647e91cf5f1b4899cPop',
@@ -48,13 +47,13 @@ function Page() {
   const handleOptionClick = (option) => {
     setSelectedOption(option);
     closeDropdown();
-    setData([]); // Clear the data array
-    setPage(1); // Reset the page number to 1
+    setData([]); 
+    setPage(1); 
   };
 
   async function fetchData(pageNumber) {
       if (!hasMoreData) {
-    return; // No need to fetch more data if there is no more data
+    return; 
   }
     setLoading(true);
     console.log(pageNumber);

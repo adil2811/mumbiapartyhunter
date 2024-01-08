@@ -60,7 +60,6 @@ export default function LoginPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add any form submission logic if needed
   };
 
   return (
@@ -93,7 +92,7 @@ export default function LoginPage() {
                             value={user.password}
                             onChange={handleInputChange}
                             className="bg-gray-100 rounded-lg px-5 py-2 focus:border border-blue-600 focus:outline-none text-black placeholder:text-gray-600 placeholder:opacity-50 font-semibold md:w-72 lg:w-[340px]"
-                            type={showPassword ? "text" : "password"} // Toggle between text and password types
+                            type={showPassword ? "text" : "password"} 
                           />
                           <div className="flex m-2">
                             <input
@@ -102,7 +101,7 @@ export default function LoginPage() {
                               onChange={handleRememberMeChange}
                               className="border-b border-stone-400"
                               type="checkbox"
-                              onClick={handleShowPassword} // Call the handleShowPassword function
+                              onClick={handleShowPassword} 
                             />
                             <div className="ml-1 text-white">Show Password</div>
                           </div>

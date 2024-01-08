@@ -56,10 +56,9 @@ export async function GET(request) {
 
     const skip = (page - 1) * limit;
 
-    // Build the filter object with the category and isVerified true condition
     const filter = {
       ... (category === 'ALLALLALLALLALLALLALLALL' ? {} : { category }),
-      isVerified: true, // Add this condition for isVerified true
+      isVerified: true, 
     };
 
     const sortObject = {};

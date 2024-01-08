@@ -8,7 +8,6 @@ import {connect} from "@/dbConfig/dbConfig";
 
 
 
-// Your GET and PUT functions
 export async function GET(request, { params }) {
     connect();
   

@@ -39,33 +39,30 @@ console.log('✌️sort --->', sort);
 console.log('✌️category --->', category);
 console.log('✌️limit --->', limit);
 console.log('✌️page --->', page);
-    // Define the URL and query parameters
-    const apiUrl = '/api/createevent'; // Replace with the actual API endpoint URL
+    const apiUrl = '/api/createevent'; 
     const queryParams = new URLSearchParams({
-      page: page, // Replace with the desired page number
-      limit: limit, // Replace with the desired limit
-      category: category, // Replace with the desired category
-      sort: sort, // Replace with the desired sorting field
-      order: 'asc', // Replace with the desired sorting order
+      page: page, 
+      limit: limit, 
+      category: category, 
+      sort: sort, 
+      order: 'asc', 
     });
   
     const fullUrl = `${apiUrl}?${queryParams.toString()}`;
 console.log('✌️fullUrl --->', fullUrl);
   
     try {
-      // Make the GET request and await the response
       const response = await fetch(fullUrl);
   
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
   
-      // Parse and return the response data
       const data = await response.json();
       return data;
     } catch (error) {
       console.error('Error:', error);
-      throw error; // Re-throw the error so it can be handled by the caller
+      throw error; 
     }
   }
   

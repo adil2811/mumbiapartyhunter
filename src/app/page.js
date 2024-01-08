@@ -9,7 +9,6 @@ import CircleLoader from '@/Components/CircleLoader';
 
 async function fetchData() {
   try {
-    // Replace 'YOUR_ENDPOINT' with the actual API endpoint
     const url = `${process.env.DOMAIN}/api/search/`
     const response = await fetch(url);
     if (!response.ok) {
@@ -36,7 +35,7 @@ export default async function Home() {
         Feature Events
       </h2>
       {!events ? (
-        <CircleLoader /> // Show CircleLoader while events are being fetched
+        <CircleLoader /> 
         ) : (
           <div className='mt-10 wrapper  grid sm:place-items-center'>
           <div className='grid grid-cols-2 max-sm: gap-20 sm:grid-cols-2 lg:grid-cols-3 '>

@@ -24,15 +24,14 @@ export async function GET(request, response) {
               { description: { $regex: new RegExp(searchQuery, "i") } },
             ],
           },
-          { isVerified: true }, // Only fetch events that are verified
+          { isVerified: true }, 
         ],
       });
     } else {
-      events = await Event.find({ isVerified: true }); // Fetch only verified events if no search query is provided
+      events = await Event.find({ isVerified: true }); 
     }
 
     if (!events || events.length === 0) {
-      // Return an error response if no events were found
       return NextResponse.json({
         message: "No verified events found",
         error: true,
@@ -40,10 +39,9 @@ export async function GET(request, response) {
     }
 
     console.log('✌️events --->', events);
-    return NextResponse.json(events); // Return a new Response object
+    return NextResponse.json(events); 
   } catch (error) {
     console.error(error);
-    // Handle errors gracefully
     return NextResponse.json({
       message: "An error occurred",
       error: true,

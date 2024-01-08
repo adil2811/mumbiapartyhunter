@@ -10,12 +10,11 @@ export function middleware(request: NextRequest) {
     path === '/login' || path === '/signup' || path === '/verifyemail'
   
   const isPrivatePath = 
-    path === '/' || // Include the root path
+    path === '/' || 
     path === '/filterevent' || 
     path === '/listevent' || 
     path === '/cart' || 
-    (path.startsWith('/search') && path !== '/search'); // Exclude '/search' itself
-
+    (path.startsWith('/search') && path !== '/search'); 
   const token = request.cookies.get('token')?.value || ''
 
   console.log('Token:', token);

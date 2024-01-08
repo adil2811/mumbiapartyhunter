@@ -43,11 +43,10 @@ export async function POST(request) {
           };
         }
 
-        return null; // Filter out invalid items
+        return null; 
       })
       .filter(item => item !== null);
 
-    // Create the order document
     const orderDoc = await Order.create({
       line_items,
       name,
@@ -59,7 +58,6 @@ export async function POST(request) {
       paid: false,
     });
 
-    // Create a Stripe checkout session
     const session = await stripe.checkout.sessions.create({
       line_items,
       mode: 'payment',
