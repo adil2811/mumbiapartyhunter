@@ -11,7 +11,7 @@
   "dependencies": {
     "@mantine/hooks": "^7.1.7",
     "@types/node": "20.6.2",
-    "@types/react": "18.2.21",
+    "@types/react": "18.2.42",
     "@types/react-dom": "18.2.7",
     "@uploadthing/react": "^5.7.0",
     "autoprefixer": "10.4.15",
