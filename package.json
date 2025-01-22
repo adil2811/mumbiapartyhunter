@@ -23,7 +23,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.3.0",
     "mongodb-client-encryption": "^6.0.0",
-    "mongoose": "^8.0.0",
+    "mongoose": "^8.9.5",
     "multiparty": "^4.2.3",
     "next": "^14.0.4",
     "nodemailer": "^6.9.5",
